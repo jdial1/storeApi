@@ -18,9 +18,9 @@
                 <th>price</th>
                 <th>image</th>
             </tr>
-            <tr v-for="item in ProductObj">
+            <tr v-for="item in ProductList">
               <td>
-                {{item.store}}
+                <img :src="item.storeUrl" style="width:200px;height:100px">
               </td>
                 <td>
                   {{item.title}}
@@ -29,7 +29,7 @@
                   {{item.price}}
                 </td>
                 <td>
-                  <img :src="item.url" style="width:100px;height:100px">
+                  <img :src="item.itemUrl" style="width:100px;height:100px">
                 </td>
             </tr>
         </table>

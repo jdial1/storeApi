@@ -35,8 +35,9 @@ app.post('/storeSearch', function(req, res) {
       for (i in targetItems){
 
         targetItems[i].price=targetItems[i].offer_price.price;
-        targetItems[i].url=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
-        targetItems[i].store="Target";
+        targetItems[i].itemUrl=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
+        targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
+        targetItems[i].storeName="Target";
 
         if (exactFlag && targetItems[i].title == requestedProduct){
             console.log("MATCH");
@@ -61,8 +62,9 @@ app.post('/storeSearch', function(req, res) {
           for (i in hyveeItems){
 
             hyveeItems[i].title=hyveeItems[i].name;
-            console.log(JSON.stringify(hyveeItems[i],null,2));
-            hyveeItems[i].store="Hy-Vee";
+            hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
+            hyveeItems[i].itemUrl=hyveeItems[i].url;
+            hyveeItems[i].storeName="Hy-Vee";
 
             if (exactFlag && hyveeItems[i].title == requestedProduct){
                 console.log("MATCH");
@@ -83,7 +85,7 @@ app.post('/storeSearch', function(req, res) {
               console.log(walmartItems.length);
 
               for (i in walmartItems){
-                //console.log(JSON.stringify(walmartItems[i],null,2));
+
                 if (walmartItems[i].hasOwnProperty('prices')){
                   if(walmartItems[i].prices.hasOwnProperty('current')){
                     walmartItems[i].price=parseInt(walmartItems[i].prices.current.amount).toFixed(2);
@@ -95,10 +97,11 @@ app.post('/storeSearch', function(req, res) {
                 else {
                   walmartItems[i].price=0;
                 }
-                walmartItems[i].store="Walmart";
-                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
 
-                walmartItems[i].url=walmartItems[i].images[0].url;
+                walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
+                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
+                walmartItems[i].itemUrl=walmartItems[i].images[0].url;
+                walmartItems[i].storeName="Walmart";
 
                 if (exactFlag && walmartItems[i].title == requestedProduct){
                     console.log("MATCH");

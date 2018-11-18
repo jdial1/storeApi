@@ -4,7 +4,7 @@ window.onload = function() {
         data: {
             productName: "test",
             exactFlag:false,
-            ProductObj: {}
+            ProductList: {}
         },
         methods: {
             storeSearch: function() {
@@ -16,8 +16,8 @@ window.onload = function() {
                       exactFlag:this.exactFlag
                     }
                 }).then((res) => {
-                    this.ProductObj = res.data;
-                    console.log(this.ProductObj);
+                    this.ProductList = res.data;
+                    console.log(this.ProductList);
                 });
             }
         }
