@@ -32,7 +32,7 @@ app.post('/storeSearch', function(req, res) {
       targetItems=response.data.search_response.items.Item;
       console.log(targetItems.length);
       //console.log('COUNT: '+Object.keys(response.data.search_response.items.Item).length);
-      for (i in targetItems){
+      for (i in targetItems.slice(0, 5)){
         //console.log("REQ PROD: "+requestedProduct);
         //console.log("PROD NAME: "+response.data.search_response.items.Item[i].title);
         targetItems[i].price=targetItems[i].offer_price.price;
@@ -58,7 +58,7 @@ app.post('/storeSearch', function(req, res) {
           hyveeItems=response.data.substring(indexStart,indexEnd-49);
           console.log(hyveeItems.length);
           hyveeItems=eval(hyveeItems);
-          for (i in hyveeItems){
+          for (i in hyveeItems.slice(0, 5)){
             hyveeItems[i].title=hyveeItems[i].name;
             hyveeItems[i].store="Hy-Vee";
             console.log(hyveeItems[i].name);
