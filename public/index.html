@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="index.js"></script>
+<body>
+    <div id="app" style="margin: auto; width: 50%;text-align: center;">
+        Target Product Finder<br><br>
+        ProductName: <input v-model="productName">
+        <button v-on:click="storeSearch">Submit</button>
+        <br><br>
+        <table style="width:100%">
+            <tr>
+                <th>Product Name</th>
+                <th>price</th>
+                <th>image</th>
+            </tr>
+            <tr v-for="item in ProductObj">
+                <td><a v-bind:href="item.url">{{item.title}}</a></td>
+                <td>{{item.offer_price.price}}</td>
+                <td><img :src="item.images[0].base_url+item.images[0].content_labels[0].image_url"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
