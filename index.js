@@ -21,51 +21,98 @@ app.get('/', function(req, res) {
 // API Route
 app.post('/storeSearch', function(req, res) {
     var products=[];
-    var exactFlag=false;
+    var exactFlag=req.body.exactFlag;
+    console.log("EXACT:"+exactFlag);
     var requestedProduct = req.body.productName;
-    if (requestedProduct.substring(0,1) == '"' || requestedProduct.substr(-1) == '"') {
-      requestedProduct = requestedProduct.replace(/"/g,'');
-      exactFlag=true;
-    }
-    axios.get('https://redsky.target.com/v1/plp/search/?keyword='+req.body.productName)
+
+    axios.get('https://redsky.target.com/v1/plp/search/?keyword='+requestedProduct)
     .then(function (response) {
       targetItems=response.data.search_response.items.Item;
+
+      console.log("TARGET");
       console.log(targetItems.length);
-      //console.log('COUNT: '+Object.keys(response.data.search_response.items.Item).length);
-      for (i in targetItems.slice(0, 5)){
-        //console.log("REQ PROD: "+requestedProduct);
-        //console.log("PROD NAME: "+response.data.search_response.items.Item[i].title);
+
+      for (i in targetItems){
+
         targetItems[i].price=targetItems[i].offer_price.price;
+        targetItems[i].url=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
         targetItems[i].store="Target";
-        if(exactFlag && targetItems[i].title == requestedProduct){
-          //console.log("----MATCH----");
-          products.push(targetItems[i]);
-          break;
+
+        if (exactFlag && targetItems[i].title == requestedProduct){
+            console.log("MATCH");
+            console.log(targetItems[i].title);
+            console.log(requestedProduct);
+            products.push(targetItems[i]);
         }
         else if(!exactFlag){
-          products.push(targetItems[i]);
+            products.push(targetItems[i]);
         }
       }
-      axios.get('https://www.hy-vee.com/grocery/search?search='+req.body.productName)
+      axios.get('https://www.hy-vee.com/grocery/search?search='+requestedProduct)
         .then(function (response) {
-          //console.log(response.data);
           indexStart=response.data.indexOf('Skip to main content</a></div>')+56;
           indexEnd=indexStart+response.data.substring(indexStart,response.data.length).indexOf('window.dataLayer = window.dataLayer || [];');
-          // console.log("INDEX START: "+indexStart);
-          // console.log("INDEX END: "+indexEnd);
-          // console.log("LENGTH: "+response.data.length);
-          // console.log(response.data.substring(indexStart,indexEnd-49));
           hyveeItems=response.data.substring(indexStart,indexEnd-49);
-          console.log(hyveeItems.length);
           hyveeItems=eval(hyveeItems);
-          for (i in hyveeItems.slice(0, 5)){
+
+          console.log("Hy-Vee");
+          console.log(hyveeItems.length);
+
+          for (i in hyveeItems){
+
             hyveeItems[i].title=hyveeItems[i].name;
+            console.log(JSON.stringify(hyveeItems[i],null,2));
             hyveeItems[i].store="Hy-Vee";
-            console.log(hyveeItems[i].name);
-            console.log(hyveeItems[i].price);
-            products.push(hyveeItems[i]);
+
+            if (exactFlag && hyveeItems[i].title == requestedProduct){
+                console.log("MATCH");
+                console.log(hyveeItems[i].title);
+                console.log(requestedProduct);
+                products.push(hyveeItems[i]);
+            }
+            else if(!exactFlag){
+                products.push(hyveeItems[i]);
+            }
+
           }
-          res.send(products);
+          axios.get('https://www.walmart.com/search/api/preso?query='+requestedProduct)
+            .then(function (response) {
+              walmartItems=response.data.items;
+
+              console.log("Walmart");
+              console.log(walmartItems.length);
+
+              for (i in walmartItems){
+                //console.log(JSON.stringify(walmartItems[i],null,2));
+                if (walmartItems[i].hasOwnProperty('prices')){
+                  if(walmartItems[i].prices.hasOwnProperty('current')){
+                    walmartItems[i].price=parseInt(walmartItems[i].prices.current.amount).toFixed(2);
+                  }
+                  else{
+                    walmartItems[i].price=parseInt(walmartItems[i].prices.base.amount).toFixed(2);
+                  }
+                }
+                else {
+                  walmartItems[i].price=0;
+                }
+                walmartItems[i].store="Walmart";
+                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
+
+                walmartItems[i].url=walmartItems[i].images[0].url;
+
+                if (exactFlag && walmartItems[i].title == requestedProduct){
+                    console.log("MATCH");
+                    console.log(walmartItems[i].title);
+                    console.log(requestedProduct);
+                    products.push(walmartItems[i]);
+                }
+                else if(!exactFlag){
+                    products.push(walmartItems[i]);
+                }
+              }
+              console.log("----Complete---");
+              res.send(products);
+            })
         })
     });
 });

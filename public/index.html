@@ -6,7 +6,9 @@
 <body>
     <div id="app" style="margin: auto; width: 50%;text-align: center;">
         Store Product Finder<br><br>
-        ProductName: <input v-model="productName">
+        ProductName: <input v-model="productName"><br>
+        <input type="checkbox" id="exactFlagCheck" v-model="exactFlag">
+        <label for="exactFlagCheck">EXACT MATCH</label><br>
         <button v-on:click="storeSearch">Submit</button>
         <br><br>
         <table style="width:100%">
@@ -14,7 +16,7 @@
                 <th>Store</th>
                 <th>Product Name</th>
                 <th>price</th>
-                <!-- <th>image</th> -->
+                <th>image</th>
             </tr>
             <tr v-for="item in ProductObj">
               <td>
@@ -27,7 +29,7 @@
                   {{item.price}}
                 </td>
                 <td>
-                  <!-- <img :src="URL"> -->
+                  <img :src="item.url" style="width:100px;height:100px">
                 </td>
             </tr>
         </table>

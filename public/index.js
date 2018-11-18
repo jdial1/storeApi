@@ -3,19 +3,19 @@ window.onload = function() {
         el: '#app',
         data: {
             productName: "test",
+            exactFlag:false,
             ProductObj: {}
         },
         methods: {
-            // on click function to send POST Request
             storeSearch: function() {
                 axios({
                     method: 'POST',
                     url: '/storeSearch',
                     data: {
-                      productName:this.productName
+                      productName:this.productName,
+                      exactFlag:this.exactFlag
                     }
                 }).then((res) => {
-                    // On response, set nearestLoc Object equal to returned data Object
                     this.ProductObj = res.data;
                     console.log(this.ProductObj);
                 });
