@@ -8,13 +8,14 @@
         Store Product Finder<br><br>
         ProductName: <input v-model="productName"><br>
         <input type="checkbox" id="exactFlagCheck" v-model="exactFlag">
-        <label for="exactFlagCheck">EXACT MATCH</label><br>
+        <label for="exactFlagCheck">EXACT UPC MATCH</label><br>
         <button v-on:click="storeSearch">Submit</button>
         <br><br>
         <table style="width:100%">
             <tr>
                 <th>Store</th>
                 <th>Product Name</th>
+                <th>UPC</th>
                 <th>price</th>
                 <th>image</th>
             </tr>
@@ -24,6 +25,9 @@
               </td>
                 <td>
                   {{item.title}}
+                </td>
+                <td>
+                  {{item.upc}}
                 </td>
                 <td>
                   {{item.price}}

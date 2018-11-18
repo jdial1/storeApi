@@ -39,7 +39,8 @@ app.post('/storeSearch', function(req, res) {
         targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
         targetItems[i].storeName="Target";
 
-        if (exactFlag && targetItems[i].title == requestedProduct){
+
+        if (exactFlag && targetItems[i].upc == requestedProduct){
             console.log("MATCH");
             console.log(targetItems[i].title);
             console.log(requestedProduct);
@@ -57,7 +58,6 @@ app.post('/storeSearch', function(req, res) {
           hyveeItems=eval(hyveeItems);
 
           console.log("Hy-Vee");
-          console.log(hyveeItems.length);
 
           for (i in hyveeItems){
 
@@ -66,7 +66,7 @@ app.post('/storeSearch', function(req, res) {
             hyveeItems[i].itemUrl=hyveeItems[i].url;
             hyveeItems[i].storeName="Hy-Vee";
 
-            if (exactFlag && hyveeItems[i].title == requestedProduct){
+            if (exactFlag && hyveeItems[i].upc == requestedProduct){
                 console.log("MATCH");
                 console.log(hyveeItems[i].title);
                 console.log(requestedProduct);
@@ -101,9 +101,11 @@ app.post('/storeSearch', function(req, res) {
                 walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
                 walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
                 walmartItems[i].itemUrl=walmartItems[i].images[0].url;
+                //.upc
+                //console.log(JSON.stringify(walmartItems[i],null,2));
                 walmartItems[i].storeName="Walmart";
 
-                if (exactFlag && walmartItems[i].title == requestedProduct){
+                if (exactFlag && walmartItems[i].upc == requestedProduct){
                     console.log("MATCH");
                     console.log(walmartItems[i].title);
                     console.log(requestedProduct);
