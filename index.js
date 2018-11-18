@@ -5,16 +5,13 @@ const path = require("path");
 const axios = require("axios");
 app.use(express.static('public'));
 
+const port = process.env.PORT || 8080;
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
-const csvFilePath = 'pharmacies.csv';
-const csv = require('csvtojson');
-csv().fromFile(csvFilePath);
-
 
 // Default route for index.html
 app.get('/', function(req, res) {
@@ -56,6 +53,6 @@ app.post('/storeSearch', function(req, res) {
 
 
 // Start app
-app.listen(5001, () =>
+app.listen(port, () =>
     console.log("App Started", moment().format("MM/DD/YY h:mm a"))
 );
