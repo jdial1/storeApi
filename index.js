@@ -34,8 +34,9 @@ app.get('/', function(req, res) {
 app.post('/storeSearch', function(req, res) {
    var products=[];
     var exactFlag=req.body.exactFlag;
-    console.log("EXACT:"+exactFlag);
     var requestedProduct = req.body.productName;
+    console.log("EXACT: "+exactFlag);
+    console.log("Product: "+requestedProduct);
 
     axios.get('https://redsky.target.com/v1/plp/search/?keyword='+requestedProduct)
     .then(function (response) {
@@ -119,11 +120,11 @@ app.post('/storeSearch', function(req, res) {
              axios.get('https://www.instacart.com/v3/containers/aldi/search_v3/'+requestedProduct)
                  app.post('/storeSearch', function(req, res) {
                  for (i in aldiItems.splice(0,resultsPerSite)){
-                      aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
+                     aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
                      aldiItems[i].title = getKeyifExist(aldiItems[i],"name");
                      aldiItems[i].price = getKeyifExist(aldiItems[i].pricing,"price");
                      aldiItems[i].itemUrl = getKeyifExist(aldiItems[i].image,"url");
-                      products.push(aldiItems[i]);
+                     products.push(aldiItems[i]);
                  }
 
                   console.log("----Complete---");
