@@ -38,8 +38,9 @@ app.get('/', function(req, res) {
 app.post('/storeSearch', function(req, res) {
     var products=[];
     var exactFlag=req.body.exactFlag;
-    console.log("EXACT:"+exactFlag);
     var requestedProduct = req.body.productName;
+    console.log("EXACT: "+exactFlag);
+    console.log("Product: "+requestedProduct);
 
     axios.get('https://redsky.target.com/v1/plp/search/?keyword='+requestedProduct)
     .then(function (response) {
