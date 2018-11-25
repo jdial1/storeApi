@@ -16,14 +16,23 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+
+const resultsPerSite = 2;
+
+function getKeyifExist(object,key) {
+  if (object.hasOwnProperty(key)){
+     return object.key
+  }
+  else {
+    return ""
+  }
+}
+
+
 // Default route for index.html
 app.get('/', function(req, res) {
     res.render('index.html');
 });
-
-
-const resultsPerSite = 2;
-
 
 // API Route
 app.post('/storeSearch', function(req, res) {
@@ -41,7 +50,7 @@ app.post('/storeSearch', function(req, res) {
 
       for (i in targetItems.splice(0,resultsPerSite)){
 
-        targetItems[i].price=targetItems[i].offer_price.price;
+        targetItems[i].price=getKeyifExist(targetItems[i].offer_price,"price");
         targetItems[i].itemUrl=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
         targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
         targetItems[i].storeName="Target";
@@ -68,22 +77,22 @@ app.post('/storeSearch', function(req, res) {
           console.log("Hy-Vee");
 
           for (i in hyveeItems.splice(0,resultsPerSite)){
-            hyveeItems[i].title=hyveeItems[i].name;
+            hyveeItems[i].title=getKeyifExist(hyveeItems[i],"name");
             hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
             hyveeItems[i].itemUrl="";
             hyveeItems[i].storeName="Hy-Vee";
 
-            if (exactFlag && hyveeItems[i].upc == requestedProduct){
-                console.log("MATCH");
-                console.log(hyveeItems[i].title);
-                console.log(requestedProduct);
-                products.push(hyveeItems[i]);
-            }
-            else if(!exactFlag){
-                products.push(hyveeItems[i]);
-            }
+          //   if (exactFlag && hyveeItems[i].upc == requestedProduct){
+          //       console.log("MATCH");
+          //       console.log(hyveeItems[i].title);
+          //       console.log(requestedProduct);
+          //       products.push(hyveeItems[i]);
+          //   }
+          //   else if(!exactFlag){
+          //       products.push(hyveeItems[i]);
+          //   }
+          // }
 
-          }
           console.log("HyVee END");
           axios.get('https://www.walmart.com/search/api/preso?query='+requestedProduct)
             .then(function (response) {
@@ -108,18 +117,18 @@ app.post('/storeSearch', function(req, res) {
 
                 walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
                 walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
-                walmartItems[i].itemUrl=walmartItems[i].images[0].url;
+                walmartItems[i].itemUrl=getKeyifExist(walmartItems[i].images[0],"url");
                 walmartItems[i].storeName="Walmart";
 
-                if (exactFlag && walmartItems[i].upc == requestedProduct){
-                    console.log("MATCH");
-                    console.log(walmartItems[i].title);
-                    console.log(requestedProduct);
-                    products.push(walmartItems[i]);
-                }
-                else if(!exactFlag){
-                    products.push(walmartItems[i]);
-                }
+                // if (exactFlag && walmartItems[i].upc == requestedProduct){
+                //     console.log("MATCH");
+                //     console.log(walmartItems[i].title);
+                //     console.log(requestedProduct);
+                //     products.push(walmartItems[i]);
+                // }
+                // else if(!exactFlag){
+                //     products.push(walmartItems[i]);
+                // }
               }
               console.log("Walmart END");
               axios.get('https://www.instacart.com/v3/containers/aldi/search_v3/'+requestedProduct)
@@ -129,9 +138,9 @@ app.post('/storeSearch', function(req, res) {
                   for (i in aldiItems.splice(0,resultsPerSite)){
 
                       aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
-                      aldiItems[i].title = aldiItems[i].name;
-                      aldiItems[i].price = aldiItems[i].pricing.price;
-                      aldiItems[i].itemUrl = aldiItems[i].image.url;
+                      aldiItems[i].title = getKeyifExist(aldiItems[i],"name");
+                      aldiItems[i].price = getKeyifExist(aldiItems[i].pricing,"price");
+                      aldiItems[i].itemUrl = getKeyifExist(aldiItems[i].image,"url");
 
                       products.push(aldiItems[i]);
                   }
