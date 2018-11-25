@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 const resultsPerSite = 2;
 
 function getKeyifExist(object,key) {
+  console.log(object);
  if (object.hasOwnProperty(key)){
     return object.key
  }
