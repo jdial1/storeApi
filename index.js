@@ -55,6 +55,8 @@ app.post('/storeSearch', function(req, res) {
        targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
        targetItems[i].storeName="Target";
 
+       products.push(targetItems[i]);
+
       }
       console.log("Target END");
 
@@ -66,14 +68,15 @@ app.post('/storeSearch', function(req, res) {
           hyveeItems=eval(hyveeItems);
 
          console.log("Hy-Vee");
-          for (i in hyveeItems.splice(0,resultsPerSite)){
-           console.log(Object.keys(hyveeItems[i]));
-           hyveeItems[i].title ? hasOwnProperty.call(hyveeItems[i], "name") : "blank";
-           hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
-           hyveeItems[i].itemUrl="";
-           hyveeItems[i].storeName="Hy-Vee";
-
-          }
+          // for (i in hyveeItems.splice(0,resultsPerSite)){
+          //  hyveeItems[i].title ? hasOwnProperty.call(hyveeItems[i], "name") : "blank";
+          //  hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
+          //  hyveeItems[i].itemUrl="";
+          //  hyveeItems[i].storeName="Hy-Vee";
+          //
+          //  products.push(hyveeItems[i]);
+          //
+          // }
 
           console.log("HyVee END");
 
@@ -97,10 +100,12 @@ app.post('/storeSearch', function(req, res) {
                 else {
                   walmartItems[i].price=0;
                 }
-                walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
+               walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
                walmartItems[i].itemUrl ? hasOwnProperty.call(walmartItems[i].images[0], "url") : "blank";
                walmartItems[i].storeName="Walmart";
+
+               products.push(walmartItems[i]);
 
              }
              console.log("Walmart END");
