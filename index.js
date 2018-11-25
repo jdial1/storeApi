@@ -19,7 +19,7 @@ const resultsPerSite = 2;
 
 function getKeyifExist(object,Objkey) {
   console.log(object);
- if (object[Objkey]){
+ if (object.hasOwnProperty(Objkey)){
     return object[Objkey]
  }
  else {
