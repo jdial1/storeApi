@@ -19,13 +19,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 const resultsPerSite = 2;
 
-function getKeyifExist(object,Objkey) {
-  console.log(object);
- if (_.has(object, Objkey)){
-    return object[Objkey]
+function getKeyifExist(objectVal,Objkey) {
+  console.log(objectVal);
+ if (Objkey in objectVal){
+    return objectVal[Objkey]
  }
  else {
-   return "Null"
+   return "No Value"
  }
 }
 // Default route for index.html
