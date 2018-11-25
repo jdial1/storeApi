@@ -62,7 +62,6 @@ app.post('/storeSearch', function(req, res) {
 
          console.log("Hy-Vee");
           for (i in hyveeItems.splice(0,resultsPerSite)){
-           hyveeItems[i].title=hyveeItems[i].name;
            hyveeItems[i].title=getKeyifExist(hyveeItems[i],"name");
            hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
            hyveeItems[i].itemUrl="";
@@ -102,7 +101,6 @@ app.post('/storeSearch', function(req, res) {
                 }
                 walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
-               walmartItems[i].itemUrl=walmartItems[i].images[0].url;
                walmartItems[i].itemUrl=getKeyifExist(walmartItems[i].images[0],"url");
                walmartItems[i].storeName="Walmart";
                 if (exactFlag && walmartItems[i].upc == requestedProduct){
@@ -122,9 +120,6 @@ app.post('/storeSearch', function(req, res) {
                  app.post('/storeSearch', function(req, res) {
                  for (i in aldiItems.splice(0,resultsPerSite)){
                       aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
-                     aldiItems[i].title = aldiItems[i].name;
-                     aldiItems[i].price = aldiItems[i].pricing.price;
-                     aldiItems[i].itemUrl = aldiItems[i].image.url;
                      aldiItems[i].title = getKeyifExist(aldiItems[i],"name");
                      aldiItems[i].price = getKeyifExist(aldiItems[i].pricing,"price");
                      aldiItems[i].itemUrl = getKeyifExist(aldiItems[i].image,"url");
