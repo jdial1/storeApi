@@ -35,7 +35,9 @@ app.post('/storeSearch', function(req, res) {
       console.log("TARGET");
       console.log(targetItems.length);
 
-      for (i in targetItems.splice(0,5)){
+      for (i in targetItems.splice(0,1)){
+        console.log(targetItems[i].name);
+
 
         targetItems[i].price=targetItems[i].offer_price.price;
         targetItems[i].itemUrl=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
@@ -63,7 +65,9 @@ app.post('/storeSearch', function(req, res) {
 
           console.log("Hy-Vee");
 
-          for (i in hyveeItems.splice(0,5)){
+          for (i in hyveeItems.splice(0,1)){
+            console.log(hyveeItems[i].name);
+
 
             hyveeItems[i].title=hyveeItems[i].name;
             hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
@@ -89,7 +93,9 @@ app.post('/storeSearch', function(req, res) {
               console.log("Walmart");
               console.log(walmartItems.length);
 
-              for (i in walmartItems.splice(0,5)){
+              for (i in walmartItems.splice(0,1)){
+                console.log(walmartItems[i].name);
+
 
                 if (walmartItems[i].hasOwnProperty('prices')){
                   if(walmartItems[i].prices.hasOwnProperty('current')){
@@ -125,8 +131,8 @@ app.post('/storeSearch', function(req, res) {
                 .then(function (response) {
                   var aldiItems = response.data.container.modules[1].data.items;
 
-                  for (i in aldiItems){
-                      console.log(aldiItems[i]);
+                  for (i in aldiItems.splice(0,1)){
+                      //console.log(aldiItems[i]);
                       console.log(aldiItems[i].name);
                       aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
                       aldiItems[i].title = aldiItems[i].name;
