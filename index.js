@@ -50,7 +50,7 @@ app.post('/storeSearch', function(req, res) {
       console.log(targetItems.length);
       for (i in targetItems.splice(0,resultsPerSite)){
        targetItems[i].price=targetItems[i].offer_price.price;
-       targetItems[i].price=getKeyifExist(targetItems[i].offer_price,"price");
+       targetItems[i].price? hasOwnProperty.call(targetItems[i].offer_price, "price") : 0;
        targetItems[i].itemUrl=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
        targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
        targetItems[i].storeName="Target";
@@ -98,7 +98,7 @@ app.post('/storeSearch', function(req, res) {
                 }
                 walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
-               walmartItems[i].itemUrl=getKeyifExist(walmartItems[i].images[0],"url");
+               walmartItems[i].itemUrl ? hasOwnProperty.call(walmartItems[i].images[0], "url") : "blank";
                walmartItems[i].storeName="Walmart";
 
              }
@@ -108,9 +108,9 @@ app.post('/storeSearch', function(req, res) {
                  app.post('/storeSearch', function(req, res) {
                  for (i in aldiItems.splice(0,resultsPerSite)){
                      aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
-                     aldiItems[i].title = getKeyifExist(aldiItems[i],"name");
-                     aldiItems[i].price = getKeyifExist(aldiItems[i].pricing,"price");
-                     aldiItems[i].itemUrl = getKeyifExist(aldiItems[i].image,"url");
+                     aldiItems[i].title ? hasOwnProperty.call(aldiItems[i], "name") : "blank";
+                     aldiItems[i].price ? hasOwnProperty.call(aldiItems[i].pricing, "price") : 0;
+                     aldiItems[i].itemUrl ? hasOwnProperty.call(aldiItems[i].image, "url") : "blank";
                      products.push(aldiItems[i]);
                  }
 
