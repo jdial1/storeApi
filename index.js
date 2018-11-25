@@ -29,7 +29,7 @@ function getKeyifExist(object,key) {
 app.get('/', function(req, res) {
    res.render('index.html');
 });
-const resultsPerSite = 2;
+
 // API Route
 app.post('/storeSearch', function(req, res) {
    var products=[];
