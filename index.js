@@ -67,7 +67,7 @@ app.post('/storeSearch', function(req, res) {
 
          console.log("Hy-Vee");
           for (i in hyveeItems.splice(0,resultsPerSite)){
-           hyveeItems[i].title=hyveeItems[i].name;
+           hyveeItems[i].title ? hasOwnProperty.call(object, key) : "blank";
            hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
            hyveeItems[i].itemUrl="";
            hyveeItems[i].storeName="Hy-Vee";
