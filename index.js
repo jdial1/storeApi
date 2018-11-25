@@ -19,10 +19,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 const resultsPerSite = 2;
 
-function getKeyifExist(objectVal,Objkey) {
-  console.log(objectVal);
- if (Objkey in objectVal){
-    return objectVal[Objkey]
+function getKeyifExist(objectName,Objkey) {
+  console.log("Object: "+objectName);
+  console.log("Key: "+Objkey);
+ if (Objkey in objectName){
+    return objectName[Objkey]
  }
  else {
    return "No Value"
@@ -66,19 +67,11 @@ app.post('/storeSearch', function(req, res) {
 
          console.log("Hy-Vee");
           for (i in hyveeItems.splice(0,resultsPerSite)){
-           hyveeItems[i].title=getKeyifExist(hyveeItems[i],"name");
+           hyveeItems[i].title=hyveeItems[i].name;
            hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
            hyveeItems[i].itemUrl="";
            hyveeItems[i].storeName="Hy-Vee";
-            if (exactFlag && hyveeItems[i].upc == requestedProduct){
-               console.log("MATCH");
-               console.log(hyveeItems[i].title);
-               console.log(requestedProduct);
-               products.push(hyveeItems[i]);
-           }
-           else if(!exactFlag){
-               products.push(hyveeItems[i]);
-           }
+
           }
 
           console.log("HyVee END");
@@ -107,15 +100,6 @@ app.post('/storeSearch', function(req, res) {
                walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
                walmartItems[i].itemUrl=getKeyifExist(walmartItems[i].images[0],"url");
                walmartItems[i].storeName="Walmart";
-                if (exactFlag && walmartItems[i].upc == requestedProduct){
-                   console.log("MATCH");
-                   console.log(walmartItems[i].title);
-                   console.log(requestedProduct);
-                   products.push(walmartItems[i]);
-               }
-               else if(!exactFlag){
-                   products.push(walmartItems[i]);
-               }
 
              }
              console.log("Walmart END");
