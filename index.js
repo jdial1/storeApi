@@ -59,26 +59,26 @@ app.post('/storeSearch', function(req, res) {
 
       }
       console.log("Target END");
-      // 
+      axios.get('https://redsky.target.com/v1/plp/search/?keyword='+requestedProduct)
       // axios.get('https://www.hy-vee.com/grocery/search?search='+requestedProduct)
-      //   .then(function (response) {
-      //     indexStart=response.data.indexOf('Skip to main content</a></div>')+56;
-      //     indexEnd=indexStart+response.data.substring(indexStart,response.data.length).indexOf('window.dataLayer = window.dataLayer || [];');
-      //     hyveeItems=response.data.substring(indexStart,indexEnd-49);
-      //     hyveeItems=eval(hyveeItems);
-      //
-      //    console.log("Hy-Vee");
-      //     for (i in hyveeItems.splice(0,resultsPerSite)){
-      //      hyveeItems[i].title ? hasOwnProperty.call(hyveeItems[i], "name") : "blank";
-      //      hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
-      //      hyveeItems[i].itemUrl="";
-      //      hyveeItems[i].storeName="Hy-Vee";
-      //
-      //      products.push(hyveeItems[i]);
-      //
-      //     }
-      //
-      //     console.log("HyVee END");
+        .then(function (response) {
+          // indexStart=response.data.indexOf('Skip to main content</a></div>')+56;
+          // indexEnd=indexStart+response.data.substring(indexStart,response.data.length).indexOf('window.dataLayer = window.dataLayer || [];');
+          // hyveeItems=response.data.substring(indexStart,indexEnd-49);
+          // hyveeItems=eval(hyveeItems);
+
+         // console.log("Hy-Vee");
+         //  for (i in hyveeItems.splice(0,resultsPerSite)){
+         //   hyveeItems[i].title ? hasOwnProperty.call(hyveeItems[i], "name") : "blank";
+         //   hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
+         //   hyveeItems[i].itemUrl="";
+         //   hyveeItems[i].storeName="Hy-Vee";
+         //
+         //   products.push(hyveeItems[i]);
+         //
+         //  }
+
+          console.log("HyVee END");
 
          axios.get('https://www.walmart.com/search/api/preso?query='+requestedProduct)
            .then(function (response) {
