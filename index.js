@@ -50,16 +50,6 @@ app.post('/storeSearch', function(req, res) {
        targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
        targetItems[i].storeName="Target";
 
-
-        // if (exactFlag && targetItems[i].upc == requestedProduct){
-        //     console.log("MATCH");
-        //     console.log(targetItems[i].title);
-        //     console.log(requestedProduct);
-        //     products.push(targetItems[i]);
-        // }
-        // else if(!exactFlag){
-        //     products.push(targetItems[i]);
-        // }
       }
       console.log("Target END");
 
@@ -87,16 +77,7 @@ app.post('/storeSearch', function(req, res) {
                products.push(hyveeItems[i]);
            }
           }
-         //   if (exactFlag && hyveeItems[i].upc == requestedProduct){
-         //       console.log("MATCH");
-         //       console.log(hyveeItems[i].title);
-         //       console.log(requestedProduct);
-         //       products.push(hyveeItems[i]);
-         //   }
-         //   else if(!exactFlag){
-         //       products.push(hyveeItems[i]);
-         //   }
-         }
+
           console.log("HyVee END");
 
          axios.get('https://www.walmart.com/search/api/preso?query='+requestedProduct)
@@ -133,15 +114,7 @@ app.post('/storeSearch', function(req, res) {
                else if(!exactFlag){
                    products.push(walmartItems[i]);
                }
-               // if (exactFlag && walmartItems[i].upc == requestedProduct){
-               //     console.log("MATCH");
-               //     console.log(walmartItems[i].title);
-               //     console.log(requestedProduct);
-               //     products.push(walmartItems[i]);
-               // }
-               // else if(!exactFlag){
-               //     products.push(walmartItems[i]);
-               // }
+
              }
              console.log("Walmart END");
 
