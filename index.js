@@ -25,7 +25,7 @@ function getKeyifExist(object,Objkey) {
     return object[Objkey]
  }
  else {
-   return ""
+   return "Null"
  }
 }
 // Default route for index.html
