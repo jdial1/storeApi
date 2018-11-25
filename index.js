@@ -56,15 +56,15 @@ app.post('/storeSearch', function(req, res) {
         targetItems[i].storeName="Target";
 
 
-        if (exactFlag && targetItems[i].upc == requestedProduct){
-            console.log("MATCH");
-            console.log(targetItems[i].title);
-            console.log(requestedProduct);
-            products.push(targetItems[i]);
-        }
-        else if(!exactFlag){
-            products.push(targetItems[i]);
-        }
+        // if (exactFlag && targetItems[i].upc == requestedProduct){
+        //     console.log("MATCH");
+        //     console.log(targetItems[i].title);
+        //     console.log(requestedProduct);
+        //     products.push(targetItems[i]);
+        // }
+        // else if(!exactFlag){
+        //     products.push(targetItems[i]);
+        // }
       }
       console.log("Target END");
       axios.get('https://www.hy-vee.com/grocery/search?search='+requestedProduct)
@@ -91,7 +91,7 @@ app.post('/storeSearch', function(req, res) {
           //   else if(!exactFlag){
           //       products.push(hyveeItems[i]);
           //   }
-          // }
+          }
 
           console.log("HyVee END");
           axios.get('https://www.walmart.com/search/api/preso?query='+requestedProduct)
