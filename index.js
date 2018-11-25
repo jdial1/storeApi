@@ -17,10 +17,10 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 const resultsPerSite = 2;
 
-function getKeyifExist(object,key) {
+function getKeyifExist(object,Objkey) {
   console.log(object);
- if (object.key){
-    return object.key
+ if (object[Objkey]){
+    return object[Objkey]
  }
  else {
    return ""
