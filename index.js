@@ -67,7 +67,7 @@ app.post('/storeSearch', function(req, res) {
 
             hyveeItems[i].title=hyveeItems[i].name;
             hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
-            hyveeItems[i].itemUrl=hyveeItems[i].url;
+            hyveeItems[i].itemUrl="";
             hyveeItems[i].storeName="Hy-Vee";
 
             if (exactFlag && hyveeItems[i].upc == requestedProduct){
