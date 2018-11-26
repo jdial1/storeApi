@@ -36,6 +36,9 @@ app.post('/storeSearch', function(req, res) {
       console.log(targetItems.length);
 
       for (i in targetItems.splice(0,5)){
+        targetItems[i].price =
+          hasOwnProperty.call(targetItems[i].offer_price, "price") ?
+          targetItems[i].offer_price.price : "blank";
 
         targetItems[i].price=targetItems[i].offer_price.price;
         targetItems[i].itemUrl=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
