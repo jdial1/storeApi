@@ -3,6 +3,7 @@ const app = express();
 const moment = require("moment");
 const path = require("path");
 const axios = require("axios");
+const _ = require('lodash');
 
 var fmt = require('./formatting.js');
 
@@ -47,12 +48,17 @@ app.post('/storeSearch', function(req, res) {
     axios.all(urls)
       .then(axios.spread(function (targetProds, hyveeProds,walmartProds,aldiProds) {
 
-        products.push(fmt.targetFmt(targetProds));
-        //products.push(fmt.hyveeFmt(hyveeProds));
-        products.push(fmt.walmartFmt(walmartProds));
-        products.push(fmt.aldiFmt(aldiProds));
+        products.push(
+          fmt.targetFmt(targetProds),
+          //fmt.hyveeFmt(hyveeProds),
+          fmt.walmartFmt(walmartProds),
+          fmt.aldiFmt(aldiProds)
+        );
 
+        products = _.flattenDeep(products);
+        products = products.slice(0, 2);
         console.log("----Complete---");
+        console.log("PRODS RETURNED: "+Object.keys(products).length);
         res.send(products);
 
       }));

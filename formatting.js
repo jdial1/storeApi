@@ -1,5 +1,3 @@
-
-
 module.exports = {
   targetFmt: function (response){
     var products = [];
@@ -39,7 +37,7 @@ module.exports = {
       hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
       hyveeItems[i].itemUrl="";
       hyveeItems[i].storeName="Hy-Vee";
-
+      console.log(hyveeItems[i].price);
       products.push(hyveeItems[i]);
 
     }
@@ -71,8 +69,6 @@ module.exports = {
       walmartItems[i].storeUrl="https://i5.walmartimages.com/dfw/4ff9c6c9-fd52/k2-_4f54a1b9-971b-424d-aee5-d2505212e23f.v1.png";
       walmartItems[i].title=walmartItems[i].title.replace(/<\/mark>/g, '').replace(/<mark>/g, '');
       walmartItems[i].itemUrl=walmartItems[i].images[0].url;
-      //.upc
-      //console.log(JSON.stringify(walmartItems[i],null,2));
       walmartItems[i].storeName="Walmart";
       products.push(walmartItems[i]);
 
@@ -88,8 +84,9 @@ module.exports = {
     var aldiItems = response.data.container.modules[1].data.items;
 
     console.log("Aldi");
+    console.log(aldiItems.length);
+
     for (i in aldiItems){
-        console.log(aldiItems[i].name);
         aldiItems[i].storeUrl="https://corporate.aldi.us/fileadmin/fm-dam/logos/ALDI_2017.png"
         aldiItems[i].title = aldiItems[i].name;
         aldiItems[i].price = aldiItems[i].pricing.price;
