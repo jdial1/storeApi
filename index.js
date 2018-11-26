@@ -45,53 +45,41 @@ app.post('/storeSearch', function(req, res) {
         targetItems[i].itemUrl=targetItems[i].images[0].base_url+targetItems[i].images[0].primary;
         targetItems[i].storeUrl="https://blog.letterjacketenvelopes.com/wp-content/uploads/2017/01/Branding.png";
         targetItems[i].storeName="Target";
+        products.push(targetItems[i]);
 
-
-        if (exactFlag && targetItems[i].upc == requestedProduct){
-            console.log("MATCH");
-            console.log(targetItems[i].title);
-            console.log(requestedProduct);
-            products.push(targetItems[i]);
-        }
-        else if(!exactFlag){
-            products.push(targetItems[i]);
-        }
       }
       console.log("Target END");
-      axios.get('https://www.hy-vee.com/grocery/search?search='+requestedProduct)
-        .then(function (response) {
-          indexStart=response.data.indexOf('Skip to main content</a></div>')+56;
-          indexEnd=indexStart+response.data.substring(indexStart,response.data.length).indexOf('window.dataLayer = window.dataLayer || [];');
-          hyveeItems=response.data.substring(indexStart,indexEnd-49);
-          hyveeItems=eval(hyveeItems);
-
-          console.log("Hy-Vee");
-
-          for (i in hyveeItems.splice(0,5)){
-
-            hyveeItems[i].title=hyveeItems[i].name;
-            hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
-            hyveeItems[i].itemUrl="";
-            hyveeItems[i].storeName="Hy-Vee";
-
-            if (exactFlag && hyveeItems[i].upc == requestedProduct){
-                console.log("MATCH");
-                console.log(hyveeItems[i].title);
-                console.log(requestedProduct);
-                products.push(hyveeItems[i]);
-            }
-            else if(!exactFlag){
-                products.push(hyveeItems[i]);
-            }
-
-          }
-          console.log("HyVee END");
+      // axios.get('https://www.hy-vee.com/grocery/search?search='+requestedProduct)
+      //   .then(function (response) {
+      //     indexStart=response.data.indexOf('Skip to main content</a></div>')+56;
+      //     indexEnd=indexStart+response.data.substring(indexStart,response.data.length).indexOf('window.dataLayer = window.dataLayer || [];');
+      //     hyveeItems=response.data.substring(indexStart,indexEnd-49);
+      //     hyveeItems=eval(hyveeItems);
+      //
+      //     console.log("Hy-Vee");
+      //     console.log(hyveeItems.length);
+      //     console.log(hyveeItems[0]);
+      //
+      //     for (i in hyveeItems.splice(0,5)){
+      //       console.log(hyveeItems[i]);
+      //       hyveeItems[i].title=
+      //         hasOwnProperty.call(hyveeItems[i], "name") ?
+      //         hyveeItems[i].title : "blank";
+      //       hyveeItems[i].storeUrl="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Hy-Vee.svg/297px-Hy-Vee.svg.png";
+      //       hyveeItems[i].itemUrl="";
+      //       hyveeItems[i].storeName="Hy-Vee";
+      //
+      //       products.push(hyveeItems[i]);
+      //
+      //     }
+      //     console.log("HyVee END");
           axios.get('https://www.walmart.com/search/api/preso?query='+requestedProduct)
             .then(function (response) {
               walmartItems=response.data.items;
 
               console.log("Walmart");
               console.log(walmartItems.length);
+              console.log(walmartItems[0]);
 
               for (i in walmartItems.splice(0,5)){
 
@@ -146,7 +134,7 @@ app.post('/storeSearch', function(req, res) {
                   console.log(error)
                 });
             })
-        })
+        // })
     });
 });
 
