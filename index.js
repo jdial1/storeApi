@@ -34,6 +34,7 @@ app.post('/storeSearch', function(req, res) {
 
       console.log("TARGET");
       console.log(targetItems.length);
+      console.log(targetItems[0]);
 
       for (i in targetItems.splice(0,5)){
         targetItems[i].price =
