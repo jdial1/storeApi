@@ -56,7 +56,7 @@ app.post('/storeSearch', function(req, res) {
         );
 
         products = _.flattenDeep(products);
-        products = products.slice(0, 2);
+        products = products.slice(0, 10);
         console.log("----Complete---");
         console.log("PRODS RETURNED: "+Object.keys(products).length);
         res.send(products);
