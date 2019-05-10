@@ -51,7 +51,7 @@ app.post('/storeSearch', function(req, res) {
         products.push(
           fmt.targetFmt(targetProds),
           //fmt.hyveeFmt(hyveeProds),
-          fmt.walmartFmt(walmartProds),
+          //fmt.walmartFmt(walmartProds),
           fmt.aldiFmt(aldiProds)
         );
 
